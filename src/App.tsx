@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import * as style from './App.style'
-import {Item} from './types/Item'
-import {Category} from './types/Category'
-import {categories} from './data/categories'
-import {items} from './data/items'
-import {filterListByMonth, getCurrentMonth} from './helpers/dateFilter'
+import { Item } from './types/Item'
+import { Category } from './types/Category'
+import { categories } from './data/categories'
+import { items } from './data/items'
+import { filterListByMonth, getCurrentMonth } from './helpers/dateFilter'
 import { TableArea } from './components/TableArea'
+import { InfoArea } from './components/InfoArea'
 
 
 const App = () => {
@@ -17,17 +18,24 @@ const App = () => {
     setFilteredList(filterListByMonth(list, currentMonth))
   }, [list, currentMonth])
 
+  const handleMonthChange = (newMonth: string) => {
+    setCurrentMonth(newMonth)
+  }
+
   return (
     <style.Container>
       <style.Header>
         <style.HeaderText>Sistema de Finanças</style.HeaderText>
       </style.Header>
       <style.Body>
-        {/* area de informação*/}
+
+        <InfoArea
+          currentMonth={currentMonth}
+          onMonthChange={handleMonthChange} />
 
         {/* area de inserção*/}
 
-       <TableArea list={list}/>
+        <TableArea list={list} />
 
       </style.Body>
     </style.Container>
